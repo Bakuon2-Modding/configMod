@@ -57,6 +57,12 @@
       <Private>False</Private>
     </Reference>
 
+    <!-- Physics -->
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(GamePath)\bakuon2_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
     <!-- Input -->
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>$(GamePath)\bakuon2_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>

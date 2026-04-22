@@ -28,7 +28,7 @@ namespace BakuonConfigMod
         private static readonly string[] TabLabels = { "キーコンフィグ", "設定", "UI表示設定", "リング", "アイテム", "アクセサリ", "ランク", "ゲームモード" };
 
         // タブごとのウィンドウ高さ (1080p 基準)
-        private static readonly float[] TabWindowHeights = { 320f, 260f, 260f, 210f, 370f, 600f, 500f, 220f };
+        private static readonly float[] TabWindowHeights = { 320f, 260f, 260f, 210f, 370f, 600f, 500f, 200f };
         // スクロール領域が必要なタブ用の高さ (ウィンドウ高さ - 固定オーバーヘッド分)
         private static readonly int[] TabScrollHeights  = {  180,    0,    0,    0,  220,  440,  340,    0 };
 

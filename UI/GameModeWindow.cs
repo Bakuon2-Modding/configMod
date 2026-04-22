@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,8 +29,8 @@ namespace BakuonConfigMod
 
         private static readonly ModeEntry[] Modes = new ModeEntry[]
         {
-            new ModeEntry("国取り戦", "WarCarry_1",   "国取り戦", LoadType.System),
-            new ModeEntry("防衛戦",   "DefenseGame",  "防衛戦",   LoadType.Direct),
+            new ModeEntry("国取り戦", "WarCarry_1",  "国取り戦", LoadType.System),
+            new ModeEntry("防衛戦",   "DefenseGame", "防衛戦",   LoadType.Direct),
         };
 
         private void Update()
@@ -53,20 +54,19 @@ namespace BakuonConfigMod
                 return;
             }
 
+            GUILayout.Label("<b>--- シーン移動 ---</b>");
+            GUILayout.Space(2);
             foreach (var mode in Modes)
             {
                 GUILayout.BeginHorizontal();
-                GUILayout.Label(mode.displayName, GUILayout.Width(180));
+                GUILayout.Label(mode.displayName, GUILayout.Width(140));
                 if (GUILayout.Button("開始", GUILayout.Width(60)))
-                {
                     LoadGameMode(mode);
-                }
                 GUILayout.EndHorizontal();
             }
 
             GUILayout.Space(6);
-            GUILayout.Label("<size=11><color=#888888>※ 未公開コンテンツは正常に動作しない場合があります。\n" +
-                           "※ オフラインモード（ソロ）での起動です。</color></size>");
+            GUILayout.Label("<size=11><color=#888888>※ 未公開コンテンツは正常に動作しない場合があります。</color></size>");
 
             if (!string.IsNullOrEmpty(statusMessage))
             {
@@ -78,14 +78,9 @@ namespace BakuonConfigMod
         private void LoadGameMode(ModeEntry mode)
         {
             var gm = SingletonMonoBehaviour<GameManager>.Instance;
-            if (gm == null)
-            {
-                ShowStatus("GameManager が見つかりません");
-                return;
-            }
+            if (gm == null) return;
 
-            LogHelper.LogInfo($"[GameMode] Loading: {mode.displayName} ({mode.sceneName}, {mode.loadType})");
-
+            LogHelper.LogInfo($"[GameMode] Loading: {mode.displayName} ({mode.sceneName})");
             gm.matchingRoomData.gameName = mode.gameName;
             gm.matchingRoomNextLoadSceneName = mode.sceneName;
 
@@ -106,9 +101,8 @@ namespace BakuonConfigMod
                         SceneManager.LoadScene(sceneName);
                     }
                     SceneManager.LoadScene("BaseSystemScene", LoadSceneMode.Additive);
-                    LogHelper.LogInfo($"[GameMode] Scene loaded: {sceneName}");
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     LogHelper.LogError($"[GameMode] シーンロードエラー: {ex}");
                 }

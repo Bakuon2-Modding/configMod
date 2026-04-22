@@ -2,6 +2,7 @@ using System.Collections;
 using System.IO;
 using MBakuon;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BakuonConfigMod
 {
@@ -10,6 +11,27 @@ namespace BakuonConfigMod
     public class GameActions : MonoBehaviour
     {
         public static bool IsUIVisible { get; private set; } = true;
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // シーン移動時に UI 非表示状態が残っていたら自動復元する。
+            // SwitchInterfaceVisible(false) が復元されないまま残るケース対策。
+            if (!IsUIVisible)
+            {
+                IsUIVisible = true;
+                LogHelper.LogInfo("[GameActions] シーンロード時に UI 表示を自動復元しました");
+            }
+        }
 
         private void Update()
         {
@@ -70,7 +92,7 @@ namespace BakuonConfigMod
             if (!SingletonMonoBehaviour<MenuScreenManager>.Instance) return;
 
             IsUIVisible = !IsUIVisible;
-            gm.SwitchInterfaceVisible(IsUIVisible);
+            ApplyUIVisible(IsUIVisible);
         }
 
         public static void SetUIVisible(bool visible)
@@ -80,7 +102,18 @@ namespace BakuonConfigMod
             if (!SingletonMonoBehaviour<MenuScreenManager>.Instance) return;
 
             IsUIVisible = visible;
+            ApplyUIVisible(visible);
+        }
+
+        private static void ApplyUIVisible(bool visible)
+        {
+            var gm = SingletonMonoBehaviour<GameManager>.Instance;
             gm.SwitchInterfaceVisible(visible);
+
+            // SwitchInterfaceVisible は textLogCanvas を操作しないため明示的に制御する。
+            var chatInputManager = SingletonMonoBehaviour<ChatInputManager>.Instance;
+            if (chatInputManager != null && chatInputManager.textLogCanvas != null)
+                chatInputManager.textLogCanvas.gameObject.SetActive(visible);
         }
 
         // ─── メニュー開閉 ────────────────────────────────────────────────
