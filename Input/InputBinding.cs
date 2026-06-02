@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BakuonConfigMod
+namespace ConfigMod
 {
     // キーバインドを表すクラス。キーボード/マウス/ジョイスティックボタン (Key) か
     // XInput (Xbox系コントローラー) ボタン (XInput) の2種類をサポートする。

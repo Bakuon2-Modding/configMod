@@ -1,7 +1,7 @@
 using BepInEx.Configuration;
 using UnityEngine;
 
-namespace BakuonConfigMod
+namespace ConfigMod
 {
     public class UIVisibilityWindow : MonoBehaviour
     {

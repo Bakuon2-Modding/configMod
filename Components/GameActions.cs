@@ -4,9 +4,9 @@ using MBakuon;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace BakuonConfigMod
+namespace ConfigMod
 {
-    // BakuonConfigMod が管理するゲームアクション (メニュー開閉など) を毎フレーム処理するコンポーネント。
+    // ConfigMod が管理するゲームアクション (メニュー開閉など) を毎フレーム処理するコンポーネント。
     // DontDestroyOnLoad な GameObject にアタッチされる。
     public class GameActions : MonoBehaviour
     {

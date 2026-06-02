@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using BepInEx.Configuration;
 using UnityEngine;
 
-namespace BakuonConfigMod
+namespace ConfigMod
 {
-    // BakuonConfigMod が管理するアクション (SuteageItem1/2/3) の入力管理。
+    // ConfigMod が管理するアクション (SuteageItem1/2/3) の入力管理。
     // KeyCode に加えて XInput (Xbox 十字キー等) もサポートする。
     // ConfigurableInput は KeyCode 専用なので、これらのアクションは別管理にする。
     public static class ConfigModInput

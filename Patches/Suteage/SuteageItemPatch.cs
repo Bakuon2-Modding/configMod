@@ -1,7 +1,7 @@
 using HarmonyLib;
 using UnityEngine;
 
-namespace BakuonConfigMod
+namespace ConfigMod
 {
     // SuteageItemController.Update の Alpha1/2/3 直接チェックを
     // ConfigModInput 経由に差し替えるパッチ。

@@ -1,4 +1,4 @@
-# BakuonConfigMod
+# ConfigMod
 
 幕オン2のUIの部分的非表示・キーコンフィグ拡張・便利機能MOD<br>
 
@@ -26,14 +26,14 @@
 
 ## インストール
 
-[Releases](../../releases) から最新の `BakuonConfigMod.zip` をダウンロードして解凍し、`BakuonConfigMod.dll` をゲームフォルダの `BepInEx/plugins/` に配置してください。
+[Releases](../../releases) から最新の `ConfigMod.zip` をダウンロードして解凍し、`ConfigMod.dll` をゲームフォルダの `BepInEx/plugins/` に配置してください。
 
 ```
 bakuon2/
   BepInEx/
     plugins/
       BakuonOfflinePatch.dll   ← OfflinePatch（必須）
-      BakuonConfigMod.dll          ← ここに置く
+      ConfigMod.dll          ← ここに置く
 ```
 
 ---
@@ -86,22 +86,22 @@ bakuon2/
 
 ## ビルド（開発者向け）
 
-ビルドにはゲームの DLL ファイルが必要です。本リポジトリをゲームフォルダ内の `BakuonConfigMod/` として配置してください。
+ビルドにはゲームの DLL ファイルが必要です。本リポジトリをゲームフォルダ内の `ConfigMod/` として配置してください。
 
 ```
 bakuon2/
-  BakuonConfigMod/   ← このリポジトリをここにクローン
+  ConfigMod/   ← このリポジトリをここにクローン
   bakuon2_Data/
   BepInEx/
   ...
 ```
 
 ```bash
-cd BakuonConfigMod
+cd ConfigMod
 dotnet build
 ```
 
-ビルドに成功すると `BepInEx/plugins/BakuonConfigMod.dll` に自動コピーされます。
+ビルドに成功すると `BepInEx/plugins/ConfigMod.dll` に自動コピーされます。
 
 ---
 

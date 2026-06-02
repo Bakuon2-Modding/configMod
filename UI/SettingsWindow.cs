@@ -2,7 +2,7 @@ using BepInEx.Configuration;
 using MBakuon;
 using UnityEngine;
 
-namespace BakuonConfigMod
+namespace ConfigMod
 {
     public class SettingsWindow : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace BakuonConfigMod
+namespace ConfigMod
 {
     // XInput (Xbox コントローラー) のボタン状態を毎フレーム追跡するクラス。
     // xinput9_1_0.dll を P/Invoke で呼び出す。コントローラー未接続時は無害に無効化される。

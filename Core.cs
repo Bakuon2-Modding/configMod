@@ -4,7 +4,7 @@ using HarmonyLib;
 using System;
 using UnityEngine;
 
-namespace BakuonConfigMod
+namespace ConfigMod
 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     [BepInDependency("com.bakuon.offlinepatch")]
@@ -26,24 +26,19 @@ namespace BakuonConfigMod
             ConfigModInput.RegisterAction("SuteageItem3", new InputBinding(KeyCode.Alpha3), Config, "アイテム3使用");
 
             // 永続 GameObject にコンポーネントをアタッチ
-            var go = new GameObject("BakuonConfigMod");
+            var go = new GameObject("ConfigMod");
             DontDestroyOnLoad(go);
             go.AddComponent<GameActions>();
             var settings = go.AddComponent<SettingsWindow>();
             settings.Initialize(Config);
             var vis = go.AddComponent<UIVisibilityWindow>();
             vis.Initialize(Config);
-            go.AddComponent<RingWindow>();
-            go.AddComponent<ItemWindow>();
-            go.AddComponent<AccessoryWindow>();
-            go.AddComponent<RankWindow>();
-            go.AddComponent<GameModeWindow>();
             var window = go.AddComponent<ConfigModWindow>();
             window.Initialize(Config);
 
             harmony = new Harmony(PluginInfo.PLUGIN_GUID);
             harmony.PatchAll();
-            Logger.LogInfo($"BakuonConfigMod v{PluginInfo.PLUGIN_VERSION} loaded");
+            Logger.LogInfo($"ConfigMod v{PluginInfo.PLUGIN_VERSION} loaded");
         }
 
         private void OnDestroy()
@@ -58,7 +53,7 @@ namespace BakuonConfigMod
     public static class PluginInfo
     {
         public const string PLUGIN_GUID = "com.bakuon.configmod";
-        public const string PLUGIN_NAME = "BakuonConfigMod";
+        public const string PLUGIN_NAME = "ConfigMod";
         public const string PLUGIN_VERSION = "1.0.0";
     }
 

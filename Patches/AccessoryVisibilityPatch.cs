@@ -1,6 +1,6 @@
 using HarmonyLib;
 
-namespace BakuonConfigMod
+namespace ConfigMod
 {
     // フィールド入場時に自分のアクセサリーが syncMyAccessory() で生成された直後、
     // 「自分のアクセサリーを非表示」設定を適用する。

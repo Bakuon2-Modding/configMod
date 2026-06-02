@@ -1,6 +1,6 @@
 using HarmonyLib;
 
-namespace BakuonConfigMod
+namespace ConfigMod
 {
     // UI 非表示時 (SwitchAllCanvasVisible(false)) でも
     // chatLabelCanvas (頭上ショートカットメッセージ) だけは表示し続けるパッチ。
