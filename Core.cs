@@ -54,7 +54,7 @@ namespace ConfigMod
     {
         public const string PLUGIN_GUID = "com.bakuon.configmod";
         public const string PLUGIN_NAME = "ConfigMod";
-        public const string PLUGIN_VERSION = "1.0.0";
+        public const string PLUGIN_VERSION = "1.0.1";
     }
 
     public static class LogHelper

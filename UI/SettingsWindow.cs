@@ -10,6 +10,7 @@ namespace ConfigMod
         private ConfigEntry<bool> muteOnFocusLoss;
         private ConfigEntry<bool> hideMyAccessories;
         private ConfigEntry<bool> showChatLabelWhenUIHidden;
+        private ConfigEntry<int> virtualPlayerCount;
 
         // FPS文字列キャッシュ。毎フレームのstring生成を避けるため30フレームごとに更新。
         private string fpsText = "FPS: --";
@@ -21,6 +22,10 @@ namespace ConfigMod
             muteOnFocusLoss          = config.Bind("Settings", "MuteOnFocusLoss",          false, "非アクティブ時にミュート");
             hideMyAccessories        = config.Bind("Settings", "HideMyAccessories",        false, "自分のアクセサリーを非表示");
             showChatLabelWhenUIHidden = config.Bind("Settings", "ShowChatLabelWhenUIHidden", false, "UI非表示時もショートカットメッセージを表示");
+            virtualPlayerCount       = config.Bind("Difficulty", "VirtualPlayerCount", 1,
+                new ConfigDescription(
+                    "【ソロ専用】PvE難易度の仮想プレイヤー人数。1=無効(バニラ)。例: 4 にするとソロでも4人想定の難易度(敵HP/出現数/クリアゲージ)になる。遺跡/アトラクション/協力/防衛戦に適用。マルチプレイ(2人以上)では自動的に無効化され実人数に従う。",
+                    new AcceptableValueRange<int>(1, 32)));
         }
 
         private void OnApplicationFocus(bool hasFocus)
@@ -85,6 +90,37 @@ namespace ConfigMod
             }
         }
 
+        // 「難易度」タブの内容（ConfigModWindow から呼ばれる）
+        public void DrawDifficultyTab()
+        {
+            GUILayout.Space(4);
+            GUILayout.Label("PvE難易度（仮想人数・ソロ専用）");
+            GUILayout.Space(4);
+
+            string label = virtualPlayerCount.Value <= 1
+                ? "現在: バニラ (人数通り)"
+                : $"現在: {virtualPlayerCount.Value}人相当";
+            GUILayout.Label("  " + label);
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(16);
+            int newCount = Mathf.RoundToInt(GUILayout.HorizontalSlider(virtualPlayerCount.Value, 1f, 32f, GUILayout.Width(200)));
+            GUILayout.Space(8);
+            if (GUILayout.Button("-", GUILayout.Width(28)) && newCount > 1) newCount--;
+            if (GUILayout.Button("+", GUILayout.Width(28)) && newCount < 32) newCount++;
+            GUILayout.EndHorizontal();
+            if (newCount != virtualPlayerCount.Value)
+            {
+                virtualPlayerCount.Value = newCount;
+                DifficultyScaling.VirtualPlayerCount = newCount;
+            }
+
+            GUILayout.Space(4);
+            GUILayout.Label("  1=無効(バニラ)。ソロでも指定人数想定の難易度に。");
+            GUILayout.Label("  対象: 遺跡 / アトラクション / 協力 / 防衛戦");
+            GUILayout.Label("  ※マルチプレイ(2人以上)では自動的に無効。");
+        }
+
         // ─── アクセサリー表示制御 ─────────────────────────────────────────
 
         // パッチからも呼べるよう static で公開
@@ -96,6 +132,7 @@ namespace ConfigMod
         {
             IsHideMyAccessories        = hideMyAccessories.Value;
             IsShowChatLabelWhenUIHidden = showChatLabelWhenUIHidden.Value;
+            DifficultyScaling.VirtualPlayerCount = virtualPlayerCount.Value;
         }
 
         public static void ApplyMyAccessoryVisibility(bool hide)

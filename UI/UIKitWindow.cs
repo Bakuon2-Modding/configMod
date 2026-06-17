@@ -18,12 +18,12 @@ namespace ConfigMod
         private Rect windowRect = new Rect(100, 100, 500, 320);
         private Vector2 scrollPos = Vector2.zero;
 
-        // タブ: 0=キーコンフィグ, 1=設定, 2=UI表示設定
+        // タブ: 0=キーコンフィグ, 1=設定, 2=UI表示設定, 3=難易度
         private int activeTab = 0;
-        private static readonly string[] TabLabels = { "キーコンフィグ", "設定", "UI表示設定" };
+        private static readonly string[] TabLabels = { "キーコンフィグ", "設定", "UI表示設定", "難易度" };
 
         // タブごとのウィンドウ高さ (1080p 基準)
-        private static readonly float[] TabWindowHeights = { 320f, 260f, 260f };
+        private static readonly float[] TabWindowHeights = { 320f, 260f, 260f, 240f };
 
         private void Start()
         {
@@ -112,6 +112,9 @@ namespace ConfigMod
                     break;
                 case 2:
                     if (visibilityWindow != null) visibilityWindow.DrawTabContent();
+                    break;
+                case 3:
+                    if (settingsWindow != null) settingsWindow.DrawDifficultyTab();
                     break;
             }
 
